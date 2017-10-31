@@ -78,6 +78,5 @@ namespace Registrar.Models
     {
       DeleteById(GetId());
     }
-
   }
 }

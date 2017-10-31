@@ -12,12 +12,6 @@ namespace Registrar.Tests
       Student.ClearAll();
     }
 
-    public StudentTests()
-    {
-      // DB.DatabaseTest();
-      // Student.ClearAll();
-    }
-
     [TestMethod]
     public void Save_SavesStudentToDatabase_1()
     {
@@ -59,7 +53,6 @@ namespace Registrar.Tests
 
       newStudent.Delete();
       Assert.AreEqual(0, Student.GetCount());
-
     }
   }
 }

@@ -24,6 +24,8 @@ namespace Registrar.Models
     private MySqlCommand _cmd;
     private MySqlConnection _conn;
 
+    private Query lastQuery;
+
     public void Dispose()
     {
       _conn.Close();
@@ -45,10 +47,15 @@ namespace Registrar.Models
 
     public Query(string query)
     {
+      if (lastQuery != null)
+      {
+        lastQuery.Dispose();
+      }
       _conn = DB.Connection();
       _cmd = _conn.CreateCommand();
       _conn.Open();
       _cmd.CommandText = @query;
+      lastQuery = this;
     }
 
     public void AddParameter(string key, string value)
