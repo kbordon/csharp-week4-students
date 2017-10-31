@@ -59,5 +59,19 @@ namespace Registrar.Tests
       Assert.AreEqual(0, Course.GetCount());
     }
 
+    [TestMethod]
+    public void GetStudents_GetStudentsByCourseId_1()
+    {
+      Course newCourse = new Course("Shadow Travel 101");
+      newCourse.Save();
+
+      Student newStudent = new Student("Michael Myers");
+      newStudent.Save();
+      newCourse.Enroll(newStudent.GetId());
+      List<Student> courseStudents = newCourse.GetStudents();
+
+      Assert.AreEqual(1, courseStudents.Count);
+    }
+
   }
 }
