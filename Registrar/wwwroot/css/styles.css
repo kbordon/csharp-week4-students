@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Aclonica|Reenie+Beanie');
+
+/*.button-text {
+  font-family: 'Reenie Beanie', cursive;
+}*/
+
+h1 {
+  font-family: 'Aclonica', sans-serif;
+}
 body {
   background-color: black;
   color: orange;

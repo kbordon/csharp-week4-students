@@ -18,6 +18,6 @@ namespace Registrar.Models
       SetName(name);
       SetId(id);
     }
-    
+
   }
 }

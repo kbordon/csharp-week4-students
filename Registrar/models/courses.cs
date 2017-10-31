@@ -115,5 +115,20 @@ namespace Registrar.Models
 			}
 			return courseStudents;
 		}
+
+		public static List<Course>GetAll()
+		{
+			List<Course> allCourses = new List<Course> {};
+			Query getAllCourses = new Query("SELECT * FROM courses");
+			var rdr = getAllCourses.Read();
+			while(rdr.Read())
+			{
+				int id = rdr.GetInt32(0);
+				string name = rdr.GetString(1);
+				Course newCourse = new Course(name, id);
+				allCourses.Add(newCourse);
+			}
+			return allCourses;
+		}
   }
 }

@@ -7,6 +7,12 @@ namespace Registrar.Tests
   [TestClass]
   public class StudentTests : IDisposable
   {
+
+    public StudentTests()
+    {
+      DB.DatabaseTest();
+    }
+
     public void Dispose()
     {
       Course.ClearAll();

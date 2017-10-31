@@ -1,0 +1,8 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>@Model.GetName()</h1>
+
+<a href="/students/delete/@Model.GetId()"><button type="submit" class="btn btn-danger btn-wide">Delete Student</button></a>
+<a href="/students"><button type="submit" class="btn btn-default btn-wide">Back To Students</button></a>

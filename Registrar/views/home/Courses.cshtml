@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+  @if (Model.Count != 0)
+  {
+    <ul class="list-unstyled">
+     @foreach (var course in Model)
+     {
+       <li><a href="/courses/@course.GetId()"><button type="button" class="btn btn-default btn-wide">@course.GetName()</button></a></li>
+     }
+   </ul>
+  }
+  else
+  {
+   <h3>There are no courses entered yet.</h3>
+  }
+</div>
+<a href="/courses/new"><button type="submit" class="btn btn-default btn-wide">Add Course</button></a>
+<a href="/"><button type="button" class="btn btn-default btn-wide">Return Home</button></a>

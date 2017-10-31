@@ -7,7 +7,7 @@
     <ul class="list-unstyled">
      @foreach (var student in Model)
      {
-       <li><a href=""><button type="button" class="btn btn-default btn-wide">@student.GetName()</button></a></li>
+       <li><a href="/students/@student.GetId()"><button type="button" class="btn btn-default btn-wide">@student.GetName()</button></a></li>
      }
    </ul>
   }
@@ -16,5 +16,5 @@
    <h3>There are no students entered yet.</h3>
   }
 </div>
-
+<a href="/students/new"><button type="submit" class="btn btn-default btn-wide">Add Student</button></a>
 <a href="/"><button type="button" class="btn btn-default btn-wide">Return Home</button></a>
