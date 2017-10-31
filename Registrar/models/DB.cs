@@ -1,15 +1,15 @@
 using System;
 using MySql.Data.MySqlClient;
-using HairSalon;
+using Registrar;
 
-namespace HairSalon.Models
+namespace Registrar.Models
 {
 
   public class DB
   {
     public static void DatabaseTest()
     {
-      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=joseph_tomlinson_test;";
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=registrar_test;";
     }
 
     public static MySqlConnection Connection()
