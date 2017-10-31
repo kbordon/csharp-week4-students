@@ -13,10 +13,15 @@ namespace Registrar.Models
     public void SetName(string name) {_name = name;}
     public string GetName() {return _name;}
 
-    public Course(string name, int id = 0)
+		private int _deptId;
+		public void SetDeptId(int deptId) {_deptId = deptId;}
+		public int GetDeptId() {return _deptId;}
+
+    public Course(string name, int id = 0, int deptId = 0)
     {
       SetName(name);
       SetId(id);
+			SetDeptId(deptId);
     }
 
     public void Save()
@@ -40,7 +45,7 @@ namespace Registrar.Models
 
     public static void ClearAll()
     {
-      Query clearCourses = new Query("DELETE FROM courses");
+      Query clearCourses = new Query("DELETE FROM courses_students; DELETE FROM courses");
       clearCourses.Execute();
     }
 
@@ -62,8 +67,13 @@ namespace Registrar.Models
 
     public void Update()
     {
-      Query updateCourse = new Query("UPDATE courses SET name = @updateName WHERE course_id = @courseId");
+      Query updateCourse = new Query(@"
+			SET foreign_key_checks = 0;
+			UPDATE courses SET name = @updateName, department_id = @updateDeptId
+			WHERE course_id = @courseId;
+			SET foreign_key_checks = 1;");
       updateCourse.AddParameter("@updateName", GetName());
+			updateCourse.AddParameter("@updateDeptId", GetDeptId().ToString());
       updateCourse.AddParameter("@courseId", GetId().ToString());
       updateCourse.Execute();
     }
@@ -81,7 +91,7 @@ namespace Registrar.Models
 
 		public void Enroll(int studentId)
 		{
-			Query enrollStudent = new Query("INSERT INTO courses_students VALUES(@courseId, @studentId)");
+			Query enrollStudent = new Query("INSERT INTO courses_students VALUES(@courseId, @studentId, 100, 0)");
 			enrollStudent.AddParameter("@courseId", GetId().ToString());
 			enrollStudent.AddParameter("@studentId", studentId.ToString());
 			enrollStudent.Execute();
@@ -89,7 +99,11 @@ namespace Registrar.Models
 
 		public List<Student> GetStudents()
 		{
-			Query getStudents = new Query("SELECT students.* FROM courses_students JOIN (courses_students, students) WHERE course_id = @courseId");
+			Query getStudents = new Query(@"
+			SELECT students.*
+				FROM courses_students JOIN (students)
+				ON students.student_id = courses_students.student_id
+			WHERE course_id = @courseId");
 			getStudents.AddParameter("@courseId", GetId().ToString());
 
 			List<Student> courseStudents = new List<Student> {};

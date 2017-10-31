@@ -1,0 +1,34 @@
+body {
+  background-color: black;
+  color: orange;
+  font-size: 20px;
+}
+
+label {
+  color: darkorange;
+}
+.jumbotron {
+  background-color: darkorange;
+  color: black;
+  text-align: center;
+}
+
+.btn-wide {
+  width: 100%;
+  font-size: 24px;
+  margin-bottom: 5px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.btn-default {
+  background-color: darkorange;
+  border-color: darkorange;
+  color: black;
+}
+
+.btn-default:hover {
+  background-color: black;
+  border-color: darkorange;
+  color: darkorange;
+}

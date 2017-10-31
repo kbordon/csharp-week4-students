@@ -65,10 +65,10 @@ CREATE TABLE `departments` (
 -- Foreign Keys
 -- ---
 
-ALTER TABLE `students` ADD FOREIGN KEY (department_id) REFERENCES `departments` (`department_id`);
-ALTER TABLE `courses` ADD FOREIGN KEY (department_id) REFERENCES `departments` (`department_id`);
+ALTER TABLE `students` ADD FOREIGN KEY (department_id) REFERENCES `departments` (`department_id`)  ON UPDATE CASCADE;
+ALTER TABLE `courses` ADD FOREIGN KEY (department_id) REFERENCES `departments` (`department_id`)  ON UPDATE CASCADE;
 ALTER TABLE `courses_students` ADD FOREIGN KEY (course_id) REFERENCES `courses` (`course_id`);
-ALTER TABLE `courses_students` ADD FOREIGN KEY (student_id) REFERENCES `students` (`student_id`);
+ALTER TABLE `courses_students` ADD FOREIGN KEY (student_id) REFERENCES `students` (`student_id`) ;
 
 -- ---
 -- Table Properties

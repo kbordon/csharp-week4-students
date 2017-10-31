@@ -13,10 +13,15 @@ namespace Registrar.Models
     public void SetName(string name) {_name = name;}
     public string GetName() {return _name;}
 
-    public Student(string name, int id = 0)
+		private int _deptId;
+		public void SetDeptId(int deptId) {_deptId = deptId;}
+		public int GetDeptId() {return _deptId;}
+
+    public Student(string name, int id = 0, int deptId = 0)
     {
       SetName(name);
       SetId(id);
+			SetDeptId(deptId);
     }
     public void Save()
     {
@@ -61,8 +66,13 @@ namespace Registrar.Models
 
     public void Update()
     {
-      Query updateStudent = new Query("UPDATE students SET name = @updateName WHERE student_id = @studentId");
+      Query updateStudent = new Query(@"
+			SET foreign_key_checks = 0;
+			UPDATE students SET name = @updateName, department_id = @updateDeptId
+			WHERE student_id = @studentId;
+			SET foreign_key_checks = 1;");
       updateStudent.AddParameter("@updateName", GetName());
+			updateStudent.AddParameter("@updateDeptId", GetDeptId().ToString());
       updateStudent.AddParameter("@studentId", GetId().ToString());
       updateStudent.Execute();
     }
@@ -78,5 +88,20 @@ namespace Registrar.Models
     {
       DeleteById(GetId());
     }
+
+		public static List<Student>GetAll()
+		{
+			List<Student> allStudents = new List<Student> {};
+			Query getAllStudents = new Query("SELECT * FROM students");
+			var rdr = getAllStudents.Read();
+			while(rdr.Read())
+			{
+				int id = rdr.GetInt32(0);
+				string name = rdr.GetString(1);
+				Student newStudent = new Student(name, id);
+				allStudents.Add(newStudent);
+			}
+			return allStudents;
+		}
   }
 }

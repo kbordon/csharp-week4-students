@@ -9,6 +9,7 @@ namespace Registrar.Tests
   {
     public void Dispose()
     {
+      Course.ClearAll();
       Student.ClearAll();
     }
 
@@ -53,6 +54,19 @@ namespace Registrar.Tests
 
       newStudent.Delete();
       Assert.AreEqual(0, Student.GetCount());
+    }
+
+    [TestMethod]
+    public void GetAll_GetAllStudentsInDatabase_List()
+    {
+      Student newStudent = new Student("Jason Voorhees");
+      newStudent.Save();
+
+      List<Student> allStudents = Student.GetAll();
+      List<Student> expectedStudents = new List<Student>{newStudent};
+
+      Assert.AreEqual(allStudents[0].GetName(), expectedStudents[0].GetName());
+      Assert.AreEqual(allStudents[0].GetId(), expectedStudents[0].GetId());
     }
   }
 }

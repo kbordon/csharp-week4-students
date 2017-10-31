@@ -10,6 +10,7 @@ namespace Registrar.Tests
     public void Dispose()
     {
       Course.ClearAll();
+      Student.ClearAll();
     }
 
     public CourseTests()
@@ -65,9 +66,17 @@ namespace Registrar.Tests
       Course newCourse = new Course("Shadow Travel 101");
       newCourse.Save();
 
+      Course newCourse2 = new Course("Biology");
+      newCourse2.Save();
+
       Student newStudent = new Student("Michael Myers");
       newStudent.Save();
       newCourse.Enroll(newStudent.GetId());
+
+      Student newStudent2 = new Student("Frankenstien");
+      newStudent2.Save();
+      newCourse2.Enroll(newStudent2.GetId());
+
       List<Student> courseStudents = newCourse.GetStudents();
 
       Assert.AreEqual(1, courseStudents.Count);
